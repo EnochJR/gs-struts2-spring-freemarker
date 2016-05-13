@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE sqlMap
+                PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+                "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+
+<sqlMap namespace="AccountHistorySQL">
+
+    <typeAlias alias="account" type="com.tom.model.Account"/>
+
+    <insert id="insertAccount" parameterClass="account">
+        insert into account(username,password,role,date)
+        values(#username#,#password#,#role#,now())
+    </insert>
+
+
+    <select id="queryOneAccount" resultClass="account" parameterClass="account">
+        select * from account
+        <dynamic prepend="where">
+            <isNotEmpty prepend="and" property="username">
+                username = #username#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="id">
+                id = #id#
+            </isNotEmpty>
+        </dynamic>
+        order by date desc
+        limit 1
+    </select>
+
+    <select id="queryAllAccount" resultClass="account">
+        select * from account
+        <dynamic prepend="where">
+            <isNotEmpty prepend="and" property="account.username">
+                username = #account.username#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="account.id">
+                id = #account.id#
+            </isNotEmpty>
+        </dynamic>
+        order by date desc
+    </select>
+
+    <delete id="deleteAccount" parameterClass="account">
+        delete from account where id=#id#
+    </delete>
+
+
+</sqlMap>
