@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * email: beauty9235@gmail.com
  * Time: 13:04
  */
-@ContextConfiguration(locations = { "classpath:/config/spring-common.xml" })
+@ContextConfiguration(locations = {"classpath:/config/spring-common.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 @TransactionConfiguration(transactionManager = "transactionManager",defaultRollback = true)
@@ -32,6 +32,5 @@ public class BaseTest extends AbstractTransactionalJUnit4SpringContextTests {
     public void setDataSource(DataSource dataSource) {
         super.setDataSource(dataSource);
     }
-
 
 }

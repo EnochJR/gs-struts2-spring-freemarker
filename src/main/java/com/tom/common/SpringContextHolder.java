@@ -57,7 +57,7 @@ public class SpringContextHolder implements ApplicationContextAware {
 
     private static void checkApplicationContext() {
         if (applicationContext == null) {
-            applicationContext =new ClassPathXmlApplicationContext("config\\context\\applicationContext.xml");
+            applicationContext =new ClassPathXmlApplicationContext("com.tom.web.config\\context\\applicationContext.xml");
             if(applicationContext==null)
                 throw new IllegalStateException("applicaitonContext未注入,请在applicationContext.xml中定义SpringContextHolder");
         }

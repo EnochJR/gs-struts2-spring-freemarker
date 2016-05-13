@@ -19,7 +19,7 @@
         <struts2.version>2.5</struts2.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mysql.version>5.1.26</mysql.version>
-
+        <wro4j.version>1.7.9</wro4j.version>
     </properties>
 
     <dependencies>
@@ -205,12 +205,31 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
                     <path>/</path>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- 运行mvn test时执行测试的插件 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8 -Djava.net.preferIPv4Stack=true</argLine>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <!-- 忽略单元测试失败 -->
+                    <!-- 命令：mvn package -Dmaven.test.failure.ignore=true <testFailureIgnore>true</testFailureIgnore> -->
+                    <!-- 跳过单元测试   -->
+                    <skip>true</skip>
+
+                    <!-- 命令：mvn -package -Dmaven.test.skip=true <skip>true</skip> -->
                 </configuration>
             </plugin>
         </plugins>

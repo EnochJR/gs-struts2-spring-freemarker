@@ -3,10 +3,10 @@
    pageNo      define current page number
    recordCount total records
    pageSize   option, in java code ,page offset must be the same, default 10
-   first_page_text option,define first page name
-   previous_page_text option, define previous page name,
-   next_page_text option, define next page name,
-   last_page_text option, define last page name
+   first_page_text option,define first page username
+   previous_page_text option, define previous page username,
+   next_page_text option, define next page username,
+   last_page_text option, define last page username
  -->
 <#macro p page count  pageSize=10 first_page_text="First" previous_page_text="Previous" next_page_text="Next" last_page_text="Last">
     <#assign current_page=page?number>

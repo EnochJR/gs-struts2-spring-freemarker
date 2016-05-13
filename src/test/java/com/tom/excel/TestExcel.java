@@ -76,9 +76,9 @@ public class TestExcel extends BaseTest {
 
     @Test
     public void testMultipleListRowsSample() throws IOException, InvalidFormatException {
-        String templateFileName = DIR + "\\WEB-INF\\classes\\test\\resources\\multiplelistrows.xls";
+        String templateFileName = DIR + "multiplelistrows.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/multiplelistrows_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
         Department department = new Department("IT");
         Calendar calendar = Calendar.getInstance();
         calendar.set(1970, 12, 2);
@@ -116,9 +116,9 @@ public class TestExcel extends BaseTest {
 
     @Test
     public void testSingleListExport() throws IOException, InvalidFormatException {
-        String templateFileName = DIR + "\\WEB-INF\\classes\\test\\resources\\employees.xls";
+        String templateFileName = DIR + "employees.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/employees_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
         Collection staff = new HashSet();
         staff.add(new Employee("Derek", 35, 3000, 0.30));
         staff.add(new Employee("Elsa", 28, 1500, 0.15));
@@ -129,7 +129,7 @@ public class TestExcel extends BaseTest {
         Map beans = new HashMap();
         beans.put("employee", staff);
         Configuration config = new Configuration();
-//        config.setUTF16( true );
+//        com.tom.web.config.setUTF16( true );
         XLSTransformer transformer = new XLSTransformer(config);
         transformer.groupCollection("employee.name");
         transformer.transformXLS(templateFileName, beans, destFileName);
@@ -143,9 +143,9 @@ public class TestExcel extends BaseTest {
 
     @Test
     public void testHiddenColumnSample() throws IOException, InvalidFormatException {
-        String templateFileName =DIR/*DIR*/ + "\\WEB-INF\\classes\\test\\resources\\department.xls";
+        String templateFileName =DIR + "department.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/hiddencolumn_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
         Department department = new Department("IT");
         Calendar calendar = Calendar.getInstance();
         calendar.set(1970, 12, 2);
@@ -178,9 +178,9 @@ public class TestExcel extends BaseTest {
 
     @Test
     public void testGroupingSample() throws IOException, InvalidFormatException {
-        String templateFileName =DIR + "\\WEB-INF\\classes\\test\\resources\\grouping.xls";
+        String templateFileName =DIR + "grouping.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/grouping_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
         List departments = new ArrayList();
         Department department = new Department("IT");
         Employee chief = new Employee("Derek", 35, 3000, 0.30);
@@ -218,9 +218,9 @@ public class TestExcel extends BaseTest {
 
     @Test
     public void testChartSample() throws IOException, InvalidFormatException {
-        String templateFileName =DIR + "\\WEB-INF\\classes\\test\\resources\\chart.xls";
+        String templateFileName =DIR + "chart.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/chart_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
 
         List staff = new ArrayList();
         staff.add(new Employee("Derek", 35, 3000, 0.30));
@@ -241,9 +241,9 @@ public class TestExcel extends BaseTest {
 
     @Test
     public void testAdjacentListsSample() throws IOException, InvalidFormatException {
-        String templateFileName =DIR + "\\WEB-INF\\classes\\test\\resources\\adjacentlists.xls";
+        String templateFileName =DIR + "adjacentlists.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/adjacentlists_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
 
 
         Department depIT = new Department("IT");
@@ -282,9 +282,9 @@ public class TestExcel extends BaseTest {
 
     @Test
     public void testStyleRowSample() throws IOException, InvalidFormatException {
-        String templateFileName =DIR + "\\WEB-INF\\classes\\test\\resources\\rowstyle.xls";
+        String templateFileName =DIR + "rowstyle.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/rowstyle_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
 
 
         Department department = new Department("IT");
@@ -315,9 +315,9 @@ public class TestExcel extends BaseTest {
 
     @Test
     public void testBasicTagSample() throws IOException, InvalidFormatException {
-        String templateFileName =DIR + "\\WEB-INF\\classes\\test\\resources\\basictags.xls";
+        String templateFileName =DIR + "basictags.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/basictags_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
         List departments = new ArrayList();
         Department department = new Department("IT");
         Employee chief = new Employee("Derek", 35, 3000, 0.30);
@@ -353,9 +353,9 @@ public class TestExcel extends BaseTest {
     }
     @Test
     public void testLoopList()throws IOException, InvalidFormatException {
-        String templateFileName =DIR + "\\WEB-INF\\classes\\test\\resources\\loopList.xls";
+        String templateFileName =DIR + "loopList.xls";
         logger.debug("{}", templateFileName);
-        String destFileName = "F:/loopList_output.xls";
+        String destFileName = TARGET_DIR+ FilenameUtils.getName(templateFileName);
         Map<String, Object> beans=new HashMap<String, Object>();
         // fruits
         List<Map<String,String>> fruitList=new ArrayList<Map<String,String>>();

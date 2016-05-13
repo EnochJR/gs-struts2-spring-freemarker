@@ -13,33 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.tom;
+package com.tom.web;
 
+import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
-import com.tom.web.BaseAction;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.Validation;
 
 import java.util.Date;
 
-/**
- * 
- */
+@Validation()
 @Conversion()
-public class IndexAction extends BaseAction {
+public class HelloWorldAction extends ActionSupport {
     
-    private Date now = new Date(System.currentTimeMillis());
+    private Date now;
+    private String name;
     
-
-
     @TypeConversion(converter = "com.tom.DateConverter")
-    public Date getNow() {
-        return now;
-    }
-
-
-
+    @RequiredFieldValidator(message = "Please enter the date")
+    public void setDateNow(Date now) { this.now = now; }
+    public Date getDateNow() { return now; }
+   
+    @RequiredStringValidator(message = "Please enter a name", trim = true)
+    public void setName(String name) { this.name = name; }
+    public String getName() { return this.name; }
+    
     public String execute() throws Exception {
-        now = new Date(System.currentTimeMillis());
         return SUCCESS;
     }
 }

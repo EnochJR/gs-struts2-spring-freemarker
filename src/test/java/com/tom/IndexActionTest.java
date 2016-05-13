@@ -15,6 +15,7 @@
  */
 package com.tom;
 
+import com.tom.web.IndexAction;
 import junit.framework.TestCase;
 
 import com.opensymphony.xwork2.Action;

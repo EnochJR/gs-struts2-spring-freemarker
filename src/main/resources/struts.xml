@@ -16,16 +16,14 @@
                 <interceptor-ref name="autowiring"/>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
-            <interceptor-stack name="arStack"> <!-- 后端拦截器-->
-                <interceptor-ref name="autoWireDefault"/>
-                <interceptor-ref name="AI"/>
-            </interceptor-stack>
             <interceptor-stack name="autoWireDefault"> <!-- 前端拦截器-->
                 <interceptor-ref name="baseDefault"/>
                 <interceptor-ref name="CI"/>
             </interceptor-stack>
-
-
+            <interceptor-stack name="arStack"> <!-- 后端拦截器-->
+                <interceptor-ref name="autoWireDefault"/>
+                <interceptor-ref name="AI"/>
+            </interceptor-stack>
             <interceptor-stack name="fileUploadStack">
                 <interceptor-ref name="autoWireDefault"/>
                 <interceptor-ref name="fileUpload"/>
@@ -34,12 +32,13 @@
         </interceptors>
         <default-interceptor-ref name="baseDefault"/>
         <default-action-ref name="index" />
-        <action name="index" class="com.tom.IndexAction">
+        <action name="index" class="com.tom.web.IndexAction">
             <result name="success" type="freemarker">/WEB-INF/template/index.ftl</result>
         </action>
-        <action name="helloWorld" class="helloWorldAction">
-            <result name="input">/jsp/index.jsp</result>
-            <result>/WEB-INF/jsp/helloWorld.jsp</result>
+        <action name="login" class="com.tom.web.LoginAction">
+            <result name="input" type="freemarker">/WEB-INF/template/login.ftl</result>
+            <result name="success" type="redirect">/index.action</result>
+            <result name="error" type="redirect">/login.action?error=true</result>
         </action>
     </package>
     <include file="config/struts/account.xwork.xml"/>

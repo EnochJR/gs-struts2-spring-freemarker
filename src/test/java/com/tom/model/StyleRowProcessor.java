@@ -19,7 +19,7 @@ public class StyleRowProcessor implements RowProcessor {
     String styleCellLabel = "customRow";
 
     /**
-     * @param collectionName The name of the collection to check before applying style
+     * @param collectionName The username of the collection to check before applying style
      */
     public StyleRowProcessor(String collectionName) {
         this.collectionName = collectionName;
