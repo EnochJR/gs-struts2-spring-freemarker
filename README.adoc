@@ -32,4 +32,4 @@
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
     
-http://www.evget.com/images/article/08072801.png[Struts2官方站点提供的Struts 2 的整体结构,link="http://www.evget.com/images/article/08072801.png"]
+image::http://www.evget.com/images/article/08072801.png[Struts2官方站点提供的Struts 2 的整体结构,500,link="http://www.evget.com/images/article/08072801.png"]
