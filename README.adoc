@@ -41,6 +41,7 @@ image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/mas
 * 接着FilterDispatcher被调用，FilterDispatcher询问ActionMapper来决定这个请求是否需要调用某个Action；
 * 如果ActionMapper决定需要调用某个Action，FilterDispatcher把请求的处理交给ActionProxy；
 ActionProxy通过Configuration Manager（struts.xml）询问框架的配置文件，找到需要调用的Action类.
+
 #### 如上文的struts.xml配置
 
 [source]
@@ -56,6 +57,9 @@ ActionProxy通过Configuration Manager（struts.xml）询问框架的配置文�
      </package>
  </struts>
  
+> 在struts.xml配置文件中，每一个Aciton定义都有name和class属性，同时还要指定result元素。result元素指定了逻辑视图名称和实际视图的对应关系。每个result都有一个type属性，前面介绍的struts.xml中并没有显式指定type值，即使用了默认的type类型：dispatcher，该结果类型支持JSP所谓视图资源。
+  对于Struts 2的视图技术和result返回类型 
+   
 * ActionProxy通过Configuration Manager询问框架的配置文件，找到需要调用的Action类；
 * ActionProxy创建一个ActionInvocation的实例。
 * ActionInvocation实例使用命名模式来调用，在调用Action的过程前后，涉及到相关拦截器（Intercepter）的调用。
@@ -73,3 +77,33 @@ ActionProxy通过Configuration Manager（struts.xml）询问框架的配置文�
   <filter-name>struts2</filter-name>
   <url-pattern>/*</url-pattern>
 </filter-mapping>
+
+* Struts2建议，在对Struts2的配置尚不熟悉的情况下，将url-pattern配置为/*，这样该过滤器将截拦所有请求。 *
+
+
+### Struts 2框架本身大致可以分为3个部分：核心控制器FilterDispatcher、业务控制器Action和用户实现的企业业务逻辑组件。
+
+#### 核心控制器FilterDispatcher
+ 
+核心控制器FilterDispatcher是Struts 2框架的基础，包含了框架内部的控制流程和处理机制。业务控制器Action和业务逻辑组件是需要用户来自己实现的。用户在开发Action和业务逻辑组件的同时，还需要编写相关的配置文件，供核心控制器FilterDispatcher来使用。
+Struts 2的工作流程相对于Struts 1要简单，与WebWork框架基本相同，所以说Struts 2是WebWork的升级版本。Struts 2框架按照模块来划分，可以分为Servlet Filters、Struts核心模块、拦截器和用户实现部分
+
+Struts 2设计的精巧之处就是使用了Action代理，Action代理可以根据系统的配置，加载一系列的拦截器，由拦截器将HttpServletRequest参数解析出来，传入Action。同样，Action处理的结果也是通过拦截器传入HttpServletResponse，然后由HttpServletRequest传给用户。
+
+拦截器是Struts 2框架的核心，通过拦截器，实现了AOP（面向切面编程）。使用拦截器，可以简化Web开发中的某些应用，例如，权限拦截器可以简化Web应用中的权限检查。
+
+#### 业务控制器Action
+ 
+业务控制器Action是由开发者自己编写实现的，Action类可以是一个简单的Java类，与Servlet API完全分离。Action一般都有一个execute()方法，也可以定义其他业务控制方法，详细内容将在后面介绍。
+Action的execute()返回一个String类型值，这与Struts 1返回的ActionForward相比，简单易懂。Struts 2提供了一个ActionSupport工具类，该类实现了Action接口和validate()方法，一般开发者编写Action可以直接继承ActionSupport类。编写Action类后，开发者还必须在配置文件中配置Action。一个Action的配置应该包含下面几个元素：
+
+* 该Action的name，即用户请求所指向的URL。
+* Action所对应的class元素，对应Action类的位置。
+* 指定result逻辑名称和实际资源的定位。
+
+Action是业务控制器，笔者建议在编写Action的时候，尽量避免将业务逻辑放到其中，尽量减少Action与业务逻辑模块或者组件的耦合程度。
+
+
+####   业务模型组件
+ 
+业务模型组件可以是实现业务逻辑的模块，可以是EJB、POJO或者JavaBean，在实际开发中，对业务模型组件的区分和定义也是比较模糊的，实际上也超出了Struts 2框架的范围。不同的开发者或者团队，都有自己的方式来实现业务逻辑模块，Struts 2框架的目的就是使用Action来调用业务逻辑模块。例如一个银行存款的业务逻辑模块
