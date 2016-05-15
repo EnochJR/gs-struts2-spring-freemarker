@@ -34,14 +34,14 @@
     
 image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts.png[Struts2官方站点提供的Struts 2 的整体结构,500,link="https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts.png"]
 
-一个请求在Struts2框架中的处理大概分为以下几个步骤：
+### 一个请求在Struts2框架中的处理大概分为以下几个步骤：
 
 * 客户端初始化一个指向Servlet容器（例如Tomcat）的请求；
 * 这个请求经过一系列的过滤器（Filter）（这些过滤器中有一个叫做ActionContextCleanUp的可选过滤器，这个过滤器对于Struts2和其他框架的集成很有帮助，例如：SiteMesh Plugin）；
 * 接着FilterDispatcher被调用，FilterDispatcher询问ActionMapper来决定这个请求是否需要调用某个Action；
 * 如果ActionMapper决定需要调用某个Action，FilterDispatcher把请求的处理交给ActionProxy；
 ActionProxy通过Configuration Manager（struts.xml）询问框架的配置文件，找到需要调用的Action类.
-如上文的struts.xml配置
+#### 如上文的struts.xml配置
 
 [source]
 <?xml version="1.0" encoding="GBK"?>
