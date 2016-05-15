@@ -1,6 +1,8 @@
-基于struts+spring+ibatis+freemarker脚手架
+=== 基于struts+spring+ibatis+freemarker脚手架
 
 如何在老系统支持mvc
+
+[source]
 <filter>
     <filter-username>struts2</filter-username>
     <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
@@ -13,10 +15,11 @@
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
 </filter-mapping>
+
 如何在老系统支持spring mvc,访问路径为/services/*
-<!-- restful configuration -->
+[source]
     <servlet>
-        <servlet-username>rest</servlet-username>
+        <servlet-username>springMvc</servlet-username>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-username>contextConfigLocation</param-username>
@@ -25,6 +28,8 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-username>rest</servlet-username>
+        <servlet-username>springMvc</servlet-username>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
+    
+http://www.evget.com/images/article/08072801.png[Struts2官方站点提供的Struts 2 的整体结构,link="http://www.evget.com/images/article/08072801.png"]
