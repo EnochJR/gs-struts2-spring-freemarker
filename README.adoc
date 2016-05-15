@@ -39,11 +39,17 @@ image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/mas
 * 客户端初始化一个指向Servlet容器（例如Tomcat）的请求；
 
 * 这个请求经过一系列的过滤器（Filter）（这些过滤器中有一个叫做ActionContextCleanUp的可选过滤器，这个过滤器对于Struts2和其他框架的集成很有帮助，例如：SiteMesh Plugin）；
+
 image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts2-1.png[调用FilterDispatcher,500,link="https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts2-1.png"]
+
 * 接着FilterDispatcher被调用，FilterDispatcher询问ActionMapper来决定这个请求是否需要调用某个Action；
+
 image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts2-2.png[FilterDispatcher询问ActionMapper,500,link="https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts2-2.png"]
+
 * 如果ActionMapper决定需要调用某个Action，FilterDispatcher把请求的处理交给ActionProxy；
+
 image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts2-3.png[FilterDispatcher把请求的处理交给ActionProxy,500,link="https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts2-3.png"]
+
 ActionProxy通过Configuration Manager（struts.xml）询问框架的配置文件，找到需要调用的Action类.
 
 #### 如上文的struts.xml配置
@@ -65,8 +71,11 @@ ActionProxy通过Configuration Manager（struts.xml）询问框架的配置文�
   对于Struts 2的视图技术和result返回类型 
    
 * ActionProxy通过Configuration Manager询问框架的配置文件，找到需要调用的Action类；
+
 * ActionProxy创建一个ActionInvocation的实例。
+
 image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts2-4.png[创建一个ActionInvocation的实例,500,link="https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts2-4.png"]
+
 * ActionInvocation实例使用命名模式来调用，在调用Action的过程前后，涉及到相关拦截器（Intercepter）的调用。
 * 一旦Action执行完毕，ActionInvocation负责根据struts.xml中的配置找到对应的返回结果。返回结果通常是（但不总是，也可能是另外的一个Action链）一个需要被表示的JSP或者FreeMarker的模版。在表示的过程中可以使用Struts2框架中继承的标签。在这个过程中需要涉及到ActionMapper。
 
