@@ -32,4 +32,12 @@
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
     
-image::http://www.evget.com/images/article/08072801.png[Struts2官方站点提供的Struts 2 的整体结构,500,link="http://www.evget.com/images/article/08072801.png"]
+image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts.png[Struts2官方站点提供的Struts 2 的整体结构,500,link="https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts.png"]
+
+一个请求在Struts2框架中的处理大概分为以下几个步骤：
+
+1. 客户端提起一个（HttpServletRequest）请求,如上文在浏览器中输入”http://localhost:8080/TestMvc/add.action”就是提起一个（HttpServletRequest）请求。
+
+2. 请求被提交到一系列（主要是三层）的过滤器（Filter），如（ActionContextCleanUp、其他过滤器（SiteMesh等）、 FilterDispatcher）。注意这里是有顺序的，先ActionContextCleanUp，再其他过滤器（SiteMesh等）、最后到FilterDispatcher。
+
+3. FilterDispatcher是控制器的核心，就是mvc中c控制层的核心。下面粗略的分析下我理解的FilterDispatcher工作流程和原理：FilterDispatcher进行初始化并启用核心doFilter
