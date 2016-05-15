@@ -35,9 +35,40 @@
 image::https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts.png[Struts2官方站点提供的Struts 2 的整体结构,500,link="https://raw.githubusercontent.com/tomlxq/gs-struts2-spring-freemarker/master/src/doc/struts.png"]
 
 一个请求在Struts2框架中的处理大概分为以下几个步骤：
+一个请求在Struts2框架中的处理大概分为以下几个步骤：
+1、客户端初始化一个指向Servlet容器（例如Tomcat）的请求；
+2、这个请求经过一系列的过滤器（Filter）（这些过滤器中有一个叫做ActionContextCleanUp的可选过滤器，这个过滤器对于Struts2和其他框架的集成很有帮助，例如：SiteMesh Plugin）；
+3、接着FilterDispatcher被调用，FilterDispatcher询问ActionMapper来决定这个请求是否需要调用某个Action；
+4、如果ActionMapper决定需要调用某个Action，FilterDispatcher把请求的处理交给ActionProxy；
+ActionProxy通过Configuration Manager（struts.xml）询问框架的配置文件，找到需要调用的Action类.
+如上文的struts.xml配置
 
-1. 客户端提起一个（HttpServletRequest）请求,如上文在浏览器中输入”http://localhost:8080/TestMvc/add.action”就是提起一个（HttpServletRequest）请求。
+[source]
+<?xml version="1.0" encoding="GBK"?>
+ <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+ <struts>
+     <include file="struts-default.xml"/>
+     <package name="struts2" extends="struts-default">
+         <action name="add" 
+             class="demo.AddAction" >
+             <result>add.jsp</result>
+         </action>   
+     </package>
+ </struts>
+5、ActionProxy通过Configuration Manager询问框架的配置文件，找到需要调用的Action类；
+6、ActionProxy创建一个ActionInvocation的实例。
+7、ActionInvocation实例使用命名模式来调用，在调用Action的过程前后，涉及到相关拦截器（Intercepter）的调用。
+8、一旦Action执行完毕，ActionInvocation负责根据struts.xml中的配置找到对应的返回结果。返回结果通常是（但不总是，也可能是另外的一个Action链）一个需要被表示的JSP或者FreeMarker的模版。在表示的过程中可以使用Struts2框架中继承的标签。在这个过程中需要涉及到ActionMapper。
 
-2. 请求被提交到一系列（主要是三层）的过滤器（Filter），如（ActionContextCleanUp、其他过滤器（SiteMesh等）、 FilterDispatcher）。注意这里是有顺序的，先ActionContextCleanUp，再其他过滤器（SiteMesh等）、最后到FilterDispatcher。
-
-3. FilterDispatcher是控制器的核心，就是mvc中c控制层的核心。下面粗略的分析下我理解的FilterDispatcher工作流程和原理：FilterDispatcher进行初始化并启用核心doFilter
+#### web.xml（截取）
+[source]
+<filter>
+  <filter-name>struts2</filter-name>
+  <filter-class>
+       org.apache.struts2.dispatcher.FilterDispatcher
+  </filter-class>
+</filter>
+<filter-mapping>
+  <filter-name>struts2</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
